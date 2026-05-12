@@ -4,9 +4,8 @@ CONFIG FILE (PRODUCTION SAFE)
 ============================== */
 
 const CONFIG = {
-  
-  // 🔥 Hugging Face Backend URL
-  API_BASE: "https://fiaz75-ai-digital-tools-hub-api.hf.space",
+  API_BASE: "https://fiaz75-ai-digital-tools-hub-api.hf.space"
+};
 
   // 🔐 Endpoints
   ENDPOINTS: {
