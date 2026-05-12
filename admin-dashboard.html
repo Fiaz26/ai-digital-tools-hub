@@ -2,233 +2,321 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AI Tools Hub - Admin Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Dashboard | AI Digital Tools Hub</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#0b1020;
+color:#fff;
 }
 
-header {
-    background: #111827;
-    padding: 20px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100vh;
+background:#121a33;
+padding:25px;
+overflow:auto;
 }
 
-.container {
-    padding: 20px;
+.logo{
+font-size:24px;
+font-weight:700;
+color:#22c55e;
+margin-bottom:30px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+.sidebar a{
+display:block;
+padding:12px;
+margin-bottom:10px;
+background:#182240;
+border-radius:10px;
+text-decoration:none;
+color:#fff;
 }
 
-.card {
-    background: #1e293b;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
+.sidebar a:hover{
+background:#22c55e;
+color:#08120d;
 }
 
-.card h2 {
-    margin: 0;
-    font-size: 20px;
+.main{
+margin-left:260px;
+padding:30px;
 }
 
-.section {
-    margin-top: 25px;
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 10px;
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin-bottom:25px;
 }
 
-input, button {
-    padding: 10px;
-    margin: 5px;
-    border-radius: 6px;
-    border: none;
+.badge{
+padding:10px 16px;
+background:#22c55e;
+color:#08120d;
+border-radius:999px;
+font-weight:700;
 }
 
-input {
-    width: 200px;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:25px;
 }
 
-button {
-    background: #3b82f6;
-    color: white;
-    cursor: pointer;
+.card{
+background:#121a33;
+padding:22px;
+border-radius:18px;
+border:1px solid rgba(255,255,255,.06);
 }
 
-button:hover {
-    background: #2563eb;
+.card h3{
+font-size:17px;
+margin-bottom:10px;
+color:#cbd5e1;
 }
 
-table {
-    width: 100%;
-    margin-top: 10px;
-    border-collapse: collapse;
+.big{
+font-size:34px;
+font-weight:700;
+color:#4ade80;
 }
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #334155;
-    text-align: left;
+.panel{
+background:#121a33;
+padding:25px;
+border-radius:18px;
+margin-bottom:25px;
 }
 
-.badge {
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 12px;
+.panel h2{
+margin-bottom:15px;
 }
 
-.free { background: #64748b; }
-.pro { background: #22c55e; }
-.premium { background: #f59e0b; }
+table{
+width:100%;
+border-collapse:collapse;
+overflow:hidden;
+border-radius:14px;
+}
+
+th,td{
+padding:14px;
+text-align:left;
+border-bottom:1px solid rgba(255,255,255,.06);
+font-size:14px;
+}
+
+th{
+color:#94a3b8;
+}
+
+.status{
+padding:6px 12px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+display:inline-block;
+}
+
+.active{
+background:#22c55e;
+color:#08120d;
+}
+
+.pending{
+background:#f59e0b;
+color:#111827;
+}
+
+button,input,select{
+padding:12px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+width:100%;
+font-size:15px;
+}
+
+button{
+background:#22c55e;
+font-weight:700;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
+}
+
+.two-col{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.small{
+color:#94a3b8;
+font-size:14px;
+margin-top:10px;
+}
+
+@media(max-width:900px){
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+.main{
+margin-left:0;
+padding:15px;
+}
+.two-col{
+grid-template-columns:1fr;
+}
+}
 </style>
 </head>
 
 <body>
 
-<header>AI Digital Tools Hub - Admin Dashboard</header>
+<div class="sidebar">
+<div class="logo">Admin Panel</div>
 
-<div class="container">
+<a href="index.html">Home</a>
+<a href="#">Dashboard</a>
+<a href="#">Users</a>
+<a href="#">Payments</a>
+<a href="#">Tool Usage</a>
+<a href="#">Settings</a>
+<a href="#">Logout</a>
+</div>
 
-<!-- STATS -->
+<div class="main">
+
+<div class="topbar">
+<h1>Admin Dashboard</h1>
+<div class="badge">Super Admin</div>
+</div>
+
 <div class="grid">
-    <div class="card">
-        <h2 id="users">0</h2>
-        <p>Total Users</p>
-    </div>
-    <div class="card">
-        <h2 id="requests">0</h2>
-        <p>Total Requests</p>
-    </div>
-    <div class="card">
-        <h2 id="free">0</h2>
-        <p>Free Users</p>
-    </div>
-    <div class="card">
-        <h2 id="pro">0</h2>
-        <p>Pro Users</p>
-    </div>
+
+<div class="card">
+<h3>Total Users</h3>
+<div class="big" id="users">1,245</div>
 </div>
 
-<!-- PAYMENT APPROVAL -->
-<div class="section">
-<h3>Approve Payment</h3>
-<input id="email" placeholder="User Email">
-<input id="plan" placeholder="Plan (pro/premium)">
-<button onclick="approvePayment()">Approve</button>
+<div class="card">
+<h3>Paid Users</h3>
+<div class="big" id="paid">213</div>
 </div>
 
-<!-- RESET CREDITS -->
-<div class="section">
-<h3>Reset Credits</h3>
-<input id="r_email" placeholder="User Email">
-<input id="credits" placeholder="Credits">
-<button onclick="resetCredits()">Update</button>
+<div class="card">
+<h3>Monthly Revenue</h3>
+<div class="big">$2,940</div>
 </div>
 
-<!-- USERS TABLE -->
-<div class="section">
-<h3>Users</h3>
+<div class="card">
+<h3>Total Tool Uses</h3>
+<div class="big">18,320</div>
+</div>
+
+</div>
+
+<div class="two-col">
+
+<div class="panel">
+<h2>Recent Users</h2>
+
 <table>
-<thead>
 <tr>
-<th>Email</th>
+<th>Name</th>
 <th>Plan</th>
-<th>Credits</th>
+<th>Status</th>
 </tr>
-</thead>
-<tbody id="usersTable"></tbody>
+
+<tr>
+<td>Ali Khan</td>
+<td>Free</td>
+<td><span class="status active">Active</span></td>
+</tr>
+
+<tr>
+<td>Sarah</td>
+<td>Pro</td>
+<td><span class="status active">Active</span></td>
+</tr>
+
+<tr>
+<td>Usman</td>
+<td>Premium</td>
+<td><span class="status pending">Pending</span></td>
+</tr>
+
+<tr>
+<td>Fatima</td>
+<td>Pro</td>
+<td><span class="status active">Active</span></td>
+</tr>
+
 </table>
+
+</div>
+
+<div class="panel">
+<h2>Manual Credit Top-up</h2>
+
+<input type="text" id="email" placeholder="User Email">
+<input type="number" id="credits" placeholder="Credits">
+<button onclick="topup()">Add Credits</button>
+
+<div class="small" id="topupmsg">
+Use for JazzCash / Easypaisa payments.
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+<h2>Platform Settings</h2>
+
+<select>
+<option>Groq API Connected</option>
+<option>Maintenance Mode Off</option>
+<option>Registrations Open</option>
+</select>
+
+<button style="margin-top:15px;">Save Settings</button>
 </div>
 
 </div>
 
 <script>
+function topup(){
+const email=document.getElementById("email").value;
+const credits=document.getElementById("credits").value;
 
-const API = "https://YOUR-HF-SPACE-URL.hf.space"; // CHANGE THIS
-const TOKEN = "YOUR_ADMIN_JWT_TOKEN"; // replace after login
-
-async function loadStats() {
-    const res = await fetch(`${API}/admin/stats`, {
-        headers: { "Authorization": "Bearer " + TOKEN }
-    });
-    const data = await res.json();
-
-    document.getElementById("users").innerText = data.total_users;
-    document.getElementById("requests").innerText = data.total_requests;
-    document.getElementById("free").innerText = data.free_users;
-    document.getElementById("pro").innerText = data.pro_users;
+if(!email || !credits){
+document.getElementById("topupmsg").innerHTML="Please enter email and credits.";
+return;
 }
 
-async function loadUsers() {
-    const res = await fetch(`${API}/admin/users`, {
-        headers: { "Authorization": "Bearer " + TOKEN }
-    });
-
-    const users = await res.json();
-
-    let html = "";
-    users.forEach(u => {
-        html += `
-        <tr>
-            <td>${u.email}</td>
-            <td><span class="badge ${u.plan}">${u.plan}</span></td>
-            <td>${u.credits}</td>
-        </tr>`;
-    });
-
-    document.getElementById("usersTable").innerHTML = html;
+document.getElementById("topupmsg").innerHTML=
+credits + " credits added to " + email + " (demo UI).";
 }
-
-async function approvePayment() {
-    const email = document.getElementById("email").value;
-    const plan = document.getElementById("plan").value;
-
-    await fetch(`${API}/admin/approve-payment`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + TOKEN
-        },
-        body: JSON.stringify({ user_email: email, plan: plan })
-    });
-
-    alert("Payment Approved");
-    loadStats();
-    loadUsers();
-}
-
-async function resetCredits() {
-    const email = document.getElementById("r_email").value;
-    const credits = document.getElementById("credits").value;
-
-    await fetch(`${API}/admin/reset-credits`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + TOKEN
-        },
-        body: JSON.stringify({ user_email: email, credits: parseInt(credits) })
-    });
-
-    alert("Credits Updated");
-    loadUsers();
-}
-
-loadStats();
-loadUsers();
-
 </script>
 
 </body>
