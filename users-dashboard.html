@@ -205,6 +205,50 @@ output.innerHTML = data.result || "No response";
 output.innerHTML = "Error connecting backend.";
 }
 }
+  <script>
+const API_URL = "https://fiaz75-ai-digital-tools-hub-api.hf.space/generate";
+
+/**
+ * Universal AI tool executor
+ */
+async function runTool() {
+
+const tool = document.getElementById("tool").value;
+const prompt = document.getElementById("prompt").value;
+const output = document.getElementById("output");
+
+if (!prompt.trim()) {
+output.innerHTML = "⚠️ Please enter input first.";
+return;
+}
+
+output.innerHTML = "⏳ Generating...";
+
+try {
+
+const res = await fetch(API_URL, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+tool: tool,
+prompt: prompt
+})
+});
+
+const data = await res.json();
+
+output.innerHTML = data.result || "No response received.";
+
+} catch (error) {
+
+output.innerHTML = "❌ API connection failed.";
+
+}
+
+}
+</script>
 </script>
 
 </body>
