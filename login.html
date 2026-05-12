@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!-- File Name: login.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Login | AI Digital Tools Hub</title>
+<meta name="description" content="Login or create your AI Digital Tools Hub account.">
+
+<link rel="stylesheet" href="assets/style.css">
+
+<style>
+.auth-wrap{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px 16px;
+background:
+radial-gradient(circle at top right, rgba(34,197,94,.18), transparent 35%),
+radial-gradient(circle at left, rgba(59,130,246,.14), transparent 30%);
+}
+
+.auth-card{
+width:100%;
+max-width:460px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+padding:34px;
+border-radius:24px;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.brand{
+font-size:28px;
+font-weight:800;
+color:#22c55e;
+text-align:center;
+margin-bottom:10px;
+}
+
+.auth-title{
+text-align:center;
+font-size:34px;
+margin-bottom:10px;
+}
+
+.auth-sub{
+text-align:center;
+color:#cbd5e1;
+margin-bottom:26px;
+font-size:15px;
+}
+
+.switcher{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:20px;
+}
+
+.switcher button{
+padding:12px;
+border-radius:12px;
+border:none;
+cursor:pointer;
+font-weight:700;
+}
+
+.active-tab{
+background:#22c55e;
+color:#06110a;
+}
+
+.passive-tab{
+background:#0f172a;
+color:#dbeafe;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.note{
+font-size:13px;
+color:#94a3b8;
+margin-top:16px;
+text-align:center;
+line-height:1.5;
+}
+
+.center{
+text-align:center;
+margin-top:20px;
+}
+
+.center a{
+color:#22c55e;
+}
+
+.alert{
+margin-bottom:14px;
+padding:12px;
+border-radius:12px;
+background:rgba(34,197,94,.12);
+border:1px solid rgba(34,197,94,.18);
+font-size:14px;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<section class="auth-wrap">
+
+<div class="auth-card">
+
+<div class="brand">AI Digital Tools Hub</div>
+
+<h1 class="auth-title">Welcome Back</h1>
+
+<p class="auth-sub">
+Login or create an account to access premium AI tools.
+</p>
+
+<div class="switcher">
+<button id="loginTab" class="active-tab" onclick="showLogin()">Login</button>
+<button id="registerTab" class="passive-tab" onclick="showRegister()">Register</button>
+</div>
+
+<div class="alert" id="msgBox"></div>
+
+<div id="loginForm">
+
+<label>Email Address</label>
+<input type="email" id="email" placeholder="Enter your email">
+
+<label>Password</label>
+<input type="password" id="password" placeholder="Enter password">
+
+<button class="btn btn-primary" style="width:100%;" onclick="loginUser()">
+Login Now
+</button>
+
+</div>
+
+<div id="registerForm" style="display:none;">
+
+<label>Email Address</label>
+<input type="email" id="regEmail" placeholder="Enter your email">
+
+<label>Password</label>
+<input type="password" id="regPassword" placeholder="Create password">
+
+<button class="btn btn-primary" style="width:100%;" onclick="registerUser()">
+Create Free Account
+</button>
+
+</div>
+
+<div class="center">
+<a href="index.html">← Back to Home</a>
+</div>
+
+<p class="note">
+Free users receive starter credits. Upgrade anytime from pricing page.
+</p>
+
+</div>
+
+</section>
+
+<script src="assets/app.js"></script>
+
+<script>
+function showLogin(){
+
+document.getElementById("loginForm").style.display = "block";
+document.getElementById("registerForm").style.display = "none";
+
+document.getElementById("loginTab").className = "active-tab";
+document.getElementById("registerTab").className = "passive-tab";
+
+}
+
+function showRegister(){
+
+document.getElementById("loginForm").style.display = "none";
+document.getElementById("registerForm").style.display = "block";
+
+document.getElementById("loginTab").className = "passive-tab";
+document.getElementById("registerTab").className = "active-tab";
+
+}
+
+function flash(msg){
+
+const box = document.getElementById("msgBox");
+box.style.display = "block";
+box.innerText = msg;
+
+setTimeout(()=>{
+box.style.display = "none";
+},3000);
+
+}
+
+async function loginUser(){
+
+const email = document.getElementById("email").value.trim();
+const password = document.getElementById("password").value.trim();
+
+if(!email || !password){
+flash("Enter email and password.");
+return;
+}
+
+try{
+
+const res = await fetch(API_URL + "/login",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:email,
+password:password
+})
+});
+
+const data = await res.json();
+
+if(data.token){
+
+localStorage.setItem("token", data.token);
+flash("Login successful");
+
+setTimeout(()=>{
+window.location.href = "dashboard.html";
+},800);
+
+}else{
+flash(data.error || "Login failed");
+}
+
+}catch(err){
+flash("Server unavailable");
+}
+
+}
+
+async function registerUser(){
+
+const email = document.getElementById("regEmail").value.trim();
+const password = document.getElementById("regPassword").value.trim();
+
+if(!email || !password){
+flash("Enter email and password.");
+return;
+}
+
+try{
+
+const res = await fetch(API_URL + "/register",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:email,
+password:password
+})
+});
+
+const data = await res.json();
+
+flash(data.message || "Registered successfully");
+
+setTimeout(()=>{
+showLogin();
+},900);
+
+}catch(err){
+flash("Registration failed");
+}
+
+}
+</script>
+
+</body>
+</html>
