@@ -128,15 +128,15 @@ alert("Registration failed");
 // TOOL ENGINE
 // ===============================
 
-async function runTool(){
+async function runTool(tool) {
 
-const tool = $("tool")?.value;
-const prompt = $("prompt")?.value.trim();
-const output = $("output");
+  const prompt = document.getElementById("promptInput").value;
 
-if(!prompt){
-setHTML("output","Please enter a prompt first.");
-return;
+  document.getElementById("output").innerText = "Generating...";
+
+  const result = await generateTool(tool, prompt);
+
+  document.getElementById("output").innerText = result;
 }
 
 if(output){
