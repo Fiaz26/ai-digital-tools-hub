@@ -189,6 +189,36 @@ setText("credits", current);
 }
 
 }
+async function generateTool(tool, prompt) {
+
+  const token = localStorage.getItem("token");
+
+  try {
+
+    const res = await fetch(CONFIG.API_BASE + "/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        tool: tool,
+        prompt: prompt
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.result) {
+      return data.result;
+    }
+
+    return data.error || "No response from AI";
+
+  } catch (err) {
+    return "Backend connection failed";
+  }
+}
 
 // ===============================
 // PAYMENT REQUEST
