@@ -155,16 +155,17 @@ padding:15px;
 
 <div class="panel">
 <h2>Use AI Tool</h2>
-
 <select id="tool">
+
 <option value="ai-blog-article-writer">AI Blog Writer</option>
 <option value="grammar-checker">Grammar Checker</option>
 <option value="keywords-research-generator">Keyword Research</option>
 <option value="meta-description-writer">Meta Description</option>
 <option value="youtube-hook-pro">YouTube Hooks</option>
 <option value="instagram-caption-generator">Instagram Captions</option>
+<option value="ad-copy-generator">Ad Copy</option>
+<option value="product-copy-generator">Product Copy</option>
 </select>
-
 <textarea id="prompt" placeholder="Enter your prompt..."></textarea>
 
 <button onclick="runTool()">Generate</button>
@@ -211,6 +212,8 @@ const API_URL = "https://fiaz75-ai-digital-tools-hub-api.hf.space/generate";
 /**
  * Universal AI tool executor
  */
+const API_URL = "https://fiaz75-ai-digital-tools-hub-api.hf.space/generate";
+
 async function runTool() {
 
 const tool = document.getElementById("tool").value;
@@ -222,7 +225,9 @@ output.innerHTML = "⚠️ Please enter input first.";
 return;
 }
 
-output.innerHTML = "⏳ Generating...";
+const toolName = TOOL_MAP[tool] || tool;
+
+output.innerHTML = "⏳ Running " + toolName + "...";
 
 try {
 
@@ -239,12 +244,13 @@ prompt: prompt
 
 const data = await res.json();
 
-output.innerHTML = data.result || "No response received.";
+output.innerHTML = `
+<h3>${toolName}</h3>
+<div>${data.result || "No response"}</div>
+`;
 
-} catch (error) {
-
+} catch (err) {
 output.innerHTML = "❌ API connection failed.";
-
 }
 
 }
