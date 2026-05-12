@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Tools Hub - Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #111827;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.section {
+    margin-top: 25px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 6px;
+    border: none;
+}
+
+input {
+    width: 200px;
+}
+
+button {
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.free { background: #64748b; }
+.pro { background: #22c55e; }
+.premium { background: #f59e0b; }
+</style>
+</head>
+
+<body>
+
+<header>AI Digital Tools Hub - Admin Dashboard</header>
+
+<div class="container">
+
+<!-- STATS -->
+<div class="grid">
+    <div class="card">
+        <h2 id="users">0</h2>
+        <p>Total Users</p>
+    </div>
+    <div class="card">
+        <h2 id="requests">0</h2>
+        <p>Total Requests</p>
+    </div>
+    <div class="card">
+        <h2 id="free">0</h2>
+        <p>Free Users</p>
+    </div>
+    <div class="card">
+        <h2 id="pro">0</h2>
+        <p>Pro Users</p>
+    </div>
+</div>
+
+<!-- PAYMENT APPROVAL -->
+<div class="section">
+<h3>Approve Payment</h3>
+<input id="email" placeholder="User Email">
+<input id="plan" placeholder="Plan (pro/premium)">
+<button onclick="approvePayment()">Approve</button>
+</div>
+
+<!-- RESET CREDITS -->
+<div class="section">
+<h3>Reset Credits</h3>
+<input id="r_email" placeholder="User Email">
+<input id="credits" placeholder="Credits">
+<button onclick="resetCredits()">Update</button>
+</div>
+
+<!-- USERS TABLE -->
+<div class="section">
+<h3>Users</h3>
+<table>
+<thead>
+<tr>
+<th>Email</th>
+<th>Plan</th>
+<th>Credits</th>
+</tr>
+</thead>
+<tbody id="usersTable"></tbody>
+</table>
+</div>
+
+</div>
+
+<script>
+
+const API = "https://YOUR-HF-SPACE-URL.hf.space"; // CHANGE THIS
+const TOKEN = "YOUR_ADMIN_JWT_TOKEN"; // replace after login
+
+async function loadStats() {
+    const res = await fetch(`${API}/admin/stats`, {
+        headers: { "Authorization": "Bearer " + TOKEN }
+    });
+    const data = await res.json();
+
+    document.getElementById("users").innerText = data.total_users;
+    document.getElementById("requests").innerText = data.total_requests;
+    document.getElementById("free").innerText = data.free_users;
+    document.getElementById("pro").innerText = data.pro_users;
+}
+
+async function loadUsers() {
+    const res = await fetch(`${API}/admin/users`, {
+        headers: { "Authorization": "Bearer " + TOKEN }
+    });
+
+    const users = await res.json();
+
+    let html = "";
+    users.forEach(u => {
+        html += `
+        <tr>
+            <td>${u.email}</td>
+            <td><span class="badge ${u.plan}">${u.plan}</span></td>
+            <td>${u.credits}</td>
+        </tr>`;
+    });
+
+    document.getElementById("usersTable").innerHTML = html;
+}
+
+async function approvePayment() {
+    const email = document.getElementById("email").value;
+    const plan = document.getElementById("plan").value;
+
+    await fetch(`${API}/admin/approve-payment`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + TOKEN
+        },
+        body: JSON.stringify({ user_email: email, plan: plan })
+    });
+
+    alert("Payment Approved");
+    loadStats();
+    loadUsers();
+}
+
+async function resetCredits() {
+    const email = document.getElementById("r_email").value;
+    const credits = document.getElementById("credits").value;
+
+    await fetch(`${API}/admin/reset-credits`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + TOKEN
+        },
+        body: JSON.stringify({ user_email: email, credits: parseInt(credits) })
+    });
+
+    alert("Credits Updated");
+    loadUsers();
+}
+
+loadStats();
+loadUsers();
+
+</script>
+
+</body>
+</html>
