@@ -53,3 +53,8 @@ function logout() {
   localStorage.removeItem("token");
   window.location.href = "login.html";
 }
+window.onload = function () {
+  const token = localStorage.getItem("token");
+  document.getElementById("debugToken").innerText =
+    "Token: " + token;
+};
