@@ -1,7 +1,21 @@
-/ /index.html 200
-/dashboard /dashboard.html 200
-/pricing /pricing.html 200
-/admin /admin.html 200
-/login /login.html 200
-/register /register.html 200
-/* /404.html 404
+/* File: _redirects */
+
+/*
+  /index.html 200
+
+/dashboard
+  /dashboard.html 200
+
+/login
+  /login.html 200
+
+/register
+  /register.html 200
+
+/pricing
+  /pricing.html 200
+
+/admin
+  /admin.html 200
+
+/*  /404.html 404
