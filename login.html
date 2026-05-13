@@ -1,55 +1,18 @@
-<!-- File: login.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | AI Tools SaaS</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <title>Login</title>
 </head>
-
 <body>
 
-<header>
-  <div class="container nav">
-    <div class="logo">AI Tools Hub</div>
+  <h2>Login</h2>
 
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="/register.html">Register</a>
-      <a href="/pricing.html">Pricing</a>
-    </div>
-  </div>
-</header>
+  <input id="email" placeholder="Email">
+  <input id="password" placeholder="Password">
 
-<section class="form-wrap">
+  <button onclick="login()">Login</button>
 
-  <div class="form-box">
-
-    <h2>Login</h2>
-<input id="email" placeholder="Email">
-<input id="password" placeholder="Password">
-
-<button onclick="login()">Login</button>
-
-<script src="assets/app.js"></script>
-    <input class="input" type="email" id="email" placeholder="Email">
-    <input class="input" type="password" id="password" placeholder="Password">
-
-    <button class="btn btn-primary btn-block" onclick="loginUser()">
-      Login
-    </button>
-
-    <p style="text-align:center;margin-top:12px;color:#cbd5e1;">
-      Don't have an account?
-      <a href="/register.html" style="color:#4ade80;">Register</a>
-    </p>
-
-  </div>
-
-</section>
-
-<script src="/assets/app.js"></script>
+  <script src="assets/app.js"></script>
 
 </body>
 </html>
