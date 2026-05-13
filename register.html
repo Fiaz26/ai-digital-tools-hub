@@ -1,1 +1,50 @@
+<!-- File: register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | AI Tools SaaS</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
 
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">AI Tools Hub</div>
+
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/login.html">Login</a>
+      <a href="/pricing.html">Pricing</a>
+    </div>
+  </div>
+</header>
+
+<section class="form-wrap">
+
+  <div class="form-box">
+
+    <h2>Create Account</h2>
+
+    <input class="input" type="email" id="email" placeholder="Email">
+    <input class="input" type="password" id="password" placeholder="Password">
+
+    <button class="btn btn-primary btn-block" onclick="registerUser()">
+      Register
+    </button>
+
+    <p style="text-align:center;margin-top:12px;color:#cbd5e1;">
+      Already have an account?
+      <a href="/login.html" style="color:#4ade80;">Login</a>
+    </p>
+
+  </div>
+
+</section>
+
+<script src="/assets/app.js"></script>
+
+</body>
+</html>
